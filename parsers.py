@@ -20,13 +20,15 @@ class KnapsackSolverParser(argparse.ArgumentParser):
         self.add_argument("-m", default=SA_METHOD, type=str, dest="method",
                             choices=[DYNAMIC_PROGRAMMING_METHOD, SA_METHOD],
                             help="Solving method. Default value:  SA method")
-        self.add_argument('-st', type=int, dest="start_temperature", default=500,
-                            help='Initial temperature for annealing approach. Default value: 100')
-        self.add_argument('-mt', type=int, dest="min_temperature", default=10,
-                            help='Minimum temperature for annealing approach. Default value: 10')
-        self.add_argument('-n', type=int, dest="steps", default=100,
-                            help='Number of steps for annealing approach iteration. Default value: 300')
-        self.add_argument('-e', type=bool, dest="evaluate", default=True,
+        self.add_argument('-st', type=int, dest="start_temperature", default=1500,
+                            help='Initial temperature for annealing approach. Default value: 1500')
+        self.add_argument('-mt', type=int, dest="min_temperature", default=0.01,
+                            help='Minimum temperature for annealing approach. Default value: 0.01')
+        self.add_argument('-n', type=int, dest="steps", default=400,
+                            help='Number of steps for annealing approach iteration. Default value: 400')
+        self.add_argument('-e', type=bool, dest="evaluate", default=False,
                             help='Flag for whether to evaluate the current method. Default value: True')
+        self.add_argument('-ub', type=bool, dest="use_builtin", default=True,
+                          help='Flag for whether to use the built in parameters. Default value: True')
 #        self.add_argument('-a', type=float, dest="alpha", default=0.98,
 #                            help='Flag for whether to evaluate the current method. Default value: True')

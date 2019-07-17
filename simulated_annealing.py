@@ -9,7 +9,7 @@ import random
 from knapsack_constructor import KnapsackProblemConstructor
 
 class KnapsackSimulatedAnnealing(KnapsackProblemConstructor):
-    def __init__(self, number, capacity, volume_value, item_available_qty, init_temp=1500, min_temp=0.01, steps=100):
+    def __init__(self, number, capacity, volume_value, item_available_qty, init_temp=500, min_temp=0.01, steps=100):
         super(KnapsackSimulatedAnnealing, self).__init__(number, capacity, volume_value, item_available_qty)
         self.init_temp = init_temp
         self.min_temp = min_temp

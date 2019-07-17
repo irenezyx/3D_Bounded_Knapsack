@@ -1,0 +1,6 @@
+,Algorithm,Dynamic Programming,Simulated Annealing
+0,Accuracy,100%,76.00%
+1,Average_Error_Rate,0%,1.33%
+2,Average_Running_Time,23.30960156,12.67589676
+3,Parameters,,"alpha: 0.99, init_temp: 1000, min_temp: 0.01, steps: 100
+"

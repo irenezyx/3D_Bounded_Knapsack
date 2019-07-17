@@ -8,7 +8,7 @@ from time import time
 from parsers import KnapsackSolverParser, DYNAMIC_PROGRAMMING_METHOD, SA_METHOD
 from compare_test_results import compare_test_result
 from dynamic_programming import KnapsackDynamicProgramming
-from sa import KnapsackSimulatedAnnealing
+from simulated_annealing import KnapsackSimulatedAnnealing
 
 knapsack_method_factory = {DYNAMIC_PROGRAMMING_METHOD: KnapsackDynamicProgramming,
                            SA_METHOD: KnapsackSimulatedAnnealing
@@ -49,12 +49,17 @@ class KnapsackSolver:
         for line_no, line in enumerate(inst_file):
             inst_id, number, capacity, volume_value, item_available_qty = self.parse_line(line)
             method_solver = knapsack_method_factory[self.args.method](number, capacity, volume_value, item_available_qty)
-            if self.args.method == SA_METHOD:
+            if not self.args.use_builtin and self.args.method == SA_METHOD:
                 method_solver.init_temp = self.args.start_temperature
                 method_solver.min_temp = self.args.min_temperature
                 method_solver.steps = self.args.steps
             # get best value and the corresponding combination of items
-            best_value, best_solution = method_solver.run()
+            best_value, best_solution = 0, None
+            for _ in range(3):
+                v, s = method_solver.run()
+                if v > best_value:
+                    best_value, best_solution = v, s
+
 #            print(best_value)
 #            print(best_value, best_solution)
             best_solution_str = ",".join("%s" % i for i in best_solution)
