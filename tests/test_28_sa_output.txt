@@ -1,3 +1,0 @@
-0,28,4250,6,0,0,0,0,83,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
-alpha: 0.9, init_temp: 500, min_temp: 0.01, steps: 100
-Average solving time for each instance: 3.3194756507873535
