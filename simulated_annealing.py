@@ -9,20 +9,34 @@ import random
 from knapsack_constructor import KnapsackProblemConstructor
 
 class KnapsackSimulatedAnnealing(KnapsackProblemConstructor):
-    def __init__(self, number, capacity, volume_value, item_available_qty, init_temp=500, min_temp=0.01, steps=100):
+    def __init__(self, number, capacity, volume_value, item_available_qty, init_temp=50, min_temp=1, steps=100):
         super(KnapsackSimulatedAnnealing, self).__init__(number, capacity, volume_value, item_available_qty)
         self.init_temp = init_temp
         self.min_temp = min_temp
         self.steps = steps
-        self.ALPHA = 0.9 # control the speed of cooling
+        self.base_line = sum(self.capacity) * 9 / 1000 # avoid bad values
+        # control the speed of cooling
+        if self.base_line > 5000:
+            self.ALPHA = 0.99 
+        elif self.base_line > 3000:
+            self.ALPHA = 0.98
+        else:
+            self.ALPHA = 0.96
 #        print(self.number, self.capacity, self.volume_value, self.item_available_qty)
 
     def run(self):
         ''' Kernel algo called by outside '''
-        start_sol = self.init_solution() 
-#        print('start sol: ' , start_sol)
-        best_value, solution = self.simulate(start_sol) 
-        return best_value, solution
+        best_value, best_solution = 0, None
+#        print(self.base_line)
+        while best_value < self.base_line:
+            for _ in range(2):
+                v, sol = self.simulate(self.init_solution())
+                print(v)
+                if v > best_value:
+                    best_value = v
+                    best_solution = sol
+        
+        return best_value, best_solution
 
     def init_solution(self):
         """Used for initial solution(state) generation.
@@ -89,9 +103,7 @@ class KnapsackSimulatedAnnealing(KnapsackProblemConstructor):
         best_value = self.get_value_and_volume_of_knapsack(solution)[0]
     
         current_sol = solution
-        dec_count = 0
-        while dec_count < 2500 and temperature >= self.min_temp:
-            dec_count += 1
+        while temperature >= self.min_temp:
 #            current_value = self.get_value_and_volume_of_knapsack(best_sol)[0]
 #            print('cur: ', current_value, current_sol)
             for _ in range(self.steps):
