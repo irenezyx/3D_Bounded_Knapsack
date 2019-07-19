@@ -49,7 +49,7 @@ class KnapsackSolver:
         else:
 #            if not os.path.exists('GB/input.txt'):
             capacity = [truck_capacity[truck_type][i] * rest_percent[i] for i in range(3)]
-            print(self.args.inst_file_path)
+#            print(self.args.inst_file_path)
             self.transformer.transform_to_input(self.args.inst_file_path, capacity)
             self.args.inst_file_path = 'GB/input.txt'
         

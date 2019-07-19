@@ -14,7 +14,7 @@ class KnapsackSimulatedAnnealing(KnapsackProblemConstructor):
         self.init_temp = init_temp
         self.min_temp = min_temp
         self.steps = steps
-        self.base_line = sum(self.capacity) * 9 / 1000 # avoid bad values
+        self.base_line = 3 * min(self.capacity) * 9.3 / 1000 # avoid bad values
         # control the speed of cooling
         if self.base_line > 5000:
             self.ALPHA = 0.99 
@@ -29,12 +29,12 @@ class KnapsackSimulatedAnnealing(KnapsackProblemConstructor):
         best_value, best_solution = 0, None
 #        print(self.base_line)
         while best_value < self.base_line:
-            for _ in range(2):
-                v, sol = self.simulate(self.init_solution())
-                print(v)
-                if v > best_value:
-                    best_value = v
-                    best_solution = sol
+#            for _ in range(2):
+            v, sol = self.simulate(self.init_solution())
+#            print(v)
+            if v > best_value:
+                best_value = v
+                best_solution = sol
         
         return best_value, best_solution
 
