@@ -21,11 +21,11 @@ class KnapsackSolverParser(argparse.ArgumentParser):
         self.add_argument("-m", default=SA_METHOD, type=str, dest="method",
                             choices=[DP_METHOD, SA_METHOD],
                             help="Solving method. Default value:  SA method")
-        self.add_argument('-st', type=int, dest="start_temperature", default=1500,
+        self.add_argument('-st', type=int, dest="start_temperature", default=50,
                             help='Initial temperature for annealing approach. Default value: 1500')
-        self.add_argument('-mt', type=int, dest="min_temperature", default=0.01,
+        self.add_argument('-mt', type=int, dest="min_temperature", default=1,
                             help='Minimum temperature for annealing approach. Default value: 0.01')
-        self.add_argument('-n', type=int, dest="steps", default=400,
+        self.add_argument('-n', type=int, dest="steps", default=100,
                             help='Number of steps for annealing approach iteration. Default value: 400')
         self.add_argument('-e', type=bool, dest="evaluate", default=False,
                             help='Flag for whether to evaluate the current method. Default value: True')

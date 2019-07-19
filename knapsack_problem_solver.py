@@ -31,6 +31,7 @@ class KnapsackSolver:
         self.args = parser.parse_args()
         self.truck_type = truck_type
         self.transformer = transformers()
+        self.rest_percent = rest_percent
         if in_jupyter:
             self.args.inst_file_path = os.getcwd()+'/../input.csv'
         if self.args.method not in knapsack_method_factory:
@@ -84,10 +85,18 @@ class KnapsackSolver:
         for line_no, line in enumerate(inst_file):
             inst_id, number, capacity, volume_value, item_available_qty = self.parse_line(line)
             method_solver = knapsack_method_factory[self.args.method](number, capacity, volume_value, item_available_qty)
-            if not self.args.use_builtin and self.args.method == SA_METHOD:
+            if self.args.use_builtin and self.args.method == SA_METHOD:
+                print('hahaha')
                 method_solver.init_temp = self.args.start_temperature
                 method_solver.min_temp = self.args.min_temperature
                 method_solver.steps = self.args.steps
+                perimeter = sum(truck_capacity[self.truck_type])
+                if perimeter < 500:
+                    method_solver.base_line = min(self.rest_percent) * perimeter * 8 # avoid bad values
+                else:
+                    method_solver.base_line = min(self.rest_percent) * perimeter * 7
+                    
+#            print(method_solver.base_line)
             best_value, best_solution = method_solver.run()
 
             best_solution_str = ",".join("%s" % i for i in best_solution)

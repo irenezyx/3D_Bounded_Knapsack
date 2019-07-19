@@ -9,33 +9,37 @@ import random
 from knapsack_constructor import KnapsackProblemConstructor
 
 class KnapsackSimulatedAnnealing(KnapsackProblemConstructor):
-    def __init__(self, number, capacity, volume_value, item_available_qty, init_temp=50, min_temp=1, steps=100):
+    def __init__(self, number, capacity, volume_value, item_available_qty, init_temp=50, min_temp=1, steps=100, baseline=100):
         super(KnapsackSimulatedAnnealing, self).__init__(number, capacity, volume_value, item_available_qty)
         self.init_temp = init_temp
         self.min_temp = min_temp
-        self.steps = steps
-        self.base_line = 3 * min(self.capacity) * 9.3 / 1000 # avoid bad values
-        # control the speed of cooling
-        if self.base_line > 5000:
-            self.ALPHA = 0.99 
-        elif self.base_line > 3000:
-            self.ALPHA = 0.98
-        else:
-            self.ALPHA = 0.96
+        self.steps = steps        
+        self.base_line = baseline
 #        print(self.number, self.capacity, self.volume_value, self.item_available_qty)
 
     def run(self):
         ''' Kernel algo called by outside '''
+        print(self.base_line)
+        # control the speed of cooling
+        if self.base_line > 6000:
+            self.ALPHA = 0.99 
+        elif self.base_line > 4000:
+            self.ALPHA = 0.98
+        elif self.base_line > 3000:
+            self.ALPHA = 0.97
+        else:
+            self.ALPHA = 0.96
+            
         best_value, best_solution = 0, None
-#        print(self.base_line)
+        print(self.ALPHA)
         while best_value < self.base_line:
 #            for _ in range(2):
             v, sol = self.simulate(self.init_solution())
-#            print(v)
+            print(v)
             if v > best_value:
                 best_value = v
                 best_solution = sol
-        
+        print('run return')
         return best_value, best_solution
 
     def init_solution(self):
