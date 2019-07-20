@@ -15,8 +15,14 @@ class transformers:
         for i, qty in enumerate(sol):
             if qty > 0:
                 gbid = self.item_gbid_map[i]
-                chosen.append([gbid, qty, str(self.df[self.df['Material'] == gbid]['Material Class'].values[0])])
-        self.sol_df = pd.DataFrame(chosen, columns = ['GBID', 'Quantity', 'Material Class'])
+                row = self.df[self.df['Material'] == gbid]
+                chosen.append([gbid, 
+                               qty, 
+                               str(row['Material Class'].values[0]),
+                               float(row['GMR for Reporting'].values[0]),
+                               float(row['Unit_profit'].values[0])
+                              ])
+        self.sol_df = pd.DataFrame(chosen, columns = ['GBID', 'Quantity', 'Material Class', 'GMR', 'Unit Profit'])
         return self.sol_df
     
     def transform_to_input(self, path, capacity):
@@ -29,7 +35,6 @@ class transformers:
             self.item_gbid_map[i] = gbid
         input_txt.append(i+1)
         capacity = [int(c * 1000) for c in capacity]
-    #    capacity = [236, 80, 108]
         input_txt.extend(capacity)
         for gbid in gbid_list:
             item = self.df[self.df['Material']==gbid]
@@ -64,3 +69,4 @@ class transformers:
         self.df['Profit_rank'] = self.df['Profit'].rank(ascending=False)
         self.df['rank'] = 0.8 * self.df['GMR_rank'] + 0.2 * self.df['Profit_rank']
         self.df = self.df.sort_values(by='rank').head(30)
+#        print(len(self.df))

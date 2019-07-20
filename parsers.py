@@ -14,8 +14,6 @@ class KnapsackSolverParser(argparse.ArgumentParser):
         super(KnapsackSolverParser, self).__init__(description=description)
         self.add_argument('-f', type=str, dest="inst_file_path", default=os.getcwd()+'/../input.csv',
                             help='Path to inst *.txt file')
-#        self.add_argument('-o', type=str, dest="solution_file_path", default="output.txt",
-#                            help='Path to file where solutions will be saved. Default value: output.txt')
         self.add_argument('-r', type=int, dest="repeat", default=1,
                             help='Number of repetitions. Default value: 1')
         self.add_argument("-m", default=SA_METHOD, type=str, dest="method",

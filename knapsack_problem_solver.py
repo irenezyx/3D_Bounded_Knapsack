@@ -85,24 +85,23 @@ class KnapsackSolver:
         for line_no, line in enumerate(inst_file):
             inst_id, number, capacity, volume_value, item_available_qty = self.parse_line(line)
             method_solver = knapsack_method_factory[self.args.method](number, capacity, volume_value, item_available_qty)
-            if self.args.use_builtin and self.args.method == SA_METHOD:
-                print('hahaha')
-                method_solver.init_temp = self.args.start_temperature
-                method_solver.min_temp = self.args.min_temperature
-                method_solver.steps = self.args.steps
+            if self.args.method == SA_METHOD:
+                if not self.args.use_builtin:
+                    print('hahaha')
+                    method_solver.init_temp = self.args.start_temperature
+                    method_solver.min_temp = self.args.min_temperature
+                    method_solver.steps = self.args.steps
                 perimeter = sum(truck_capacity[self.truck_type])
                 if perimeter < 500:
-                    method_solver.base_line = min(self.rest_percent) * perimeter * 8 # avoid bad values
+                    method_solver.base_line = min(self.rest_percent) * perimeter * 10.3 # avoid bad values
                 else:
-                    method_solver.base_line = min(self.rest_percent) * perimeter * 7
-                    
-#            print(method_solver.base_line)
+                    method_solver.base_line = min(self.rest_percent) * perimeter * 9.3
+
             best_value, best_solution = method_solver.run()
 
             best_solution_str = ",".join("%s" % i for i in best_solution)
             # write best result to file
             sol_file.write("%s,%s,%s,%s\n" % (inst_id, number, best_value, best_solution_str))
-#            print(self.args.inst_file_path.split('.')[0]+'_'+self.args.method+'_output.txt')
         
         if self.args.method == SA_METHOD: # record parameters
             sol_file.write('alpha: %s, init_temp: %s, min_temp: %s, steps: %s\n' % (method_solver.ALPHA, method_solver.init_temp, method_solver.min_temp, method_solver.steps))
@@ -117,13 +116,6 @@ class KnapsackSolver:
                                 list of tuples like: [(volume, value), (volume, value), ...])
         """
         parts = [float(value) if (i-5)%5==3 else int(value) for i, value in enumerate(line.split(','))]
-#        parts = [float(value) for value in line.split(',')]
-#        inst_id, number = list(map(int, parts[0:2]))
-#        capacity = list(map(int, parts[2:5]))
-#        volume_value = [(parts[i:i+4]) for i in range(5, len(parts), 5)]
-#        for vv in volume_value:
-#            vv[:3] = list(map(int, vv[:3]))
-#        item_available_qty = [(parts[i]) for i in range(9, len(parts), 5)]
         inst_id, number = parts[0:2]
         capacity = parts[2:5]
         volume_value = [(parts[i:i+4]) for i in range(5, len(parts), 5)]

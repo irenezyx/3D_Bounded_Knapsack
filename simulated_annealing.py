@@ -31,15 +31,14 @@ class KnapsackSimulatedAnnealing(KnapsackProblemConstructor):
             self.ALPHA = 0.96
             
         best_value, best_solution = 0, None
-        print(self.ALPHA)
+#        print(self.ALPHA)
         while best_value < self.base_line:
 #            for _ in range(2):
             v, sol = self.simulate(self.init_solution())
-            print(v)
+#            print(v)
             if v > best_value:
                 best_value = v
                 best_solution = sol
-        print('run return')
         return best_value, best_solution
 
     def init_solution(self):
