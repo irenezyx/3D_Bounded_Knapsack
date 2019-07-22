@@ -75,7 +75,7 @@ class KnapsackSolver:
                 compare_test_result(inst_num, item_num, sol_path, dp_sol_path)
             else:
                 print('To Evaluate, please run dynamic programming first.')
-        return best_value, best_solution, self.transformer
+        return best_value, best_solution
   
     def knapsack_solver(self):
         """Main method that solves knapsack problem using one of the existing methods"""
