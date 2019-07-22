@@ -5,6 +5,7 @@
 
 import pandas as pd
 import numpy as np
+import random
 
 class transformers:
     def __init__(self):
@@ -67,6 +68,8 @@ class transformers:
         self.df = self.df.drop_duplicates()
         self.df['GMR_rank'] = self.df['GMR for Reporting'].rank(ascending=False)
         self.df['Profit_rank'] = self.df['Profit'].rank(ascending=False)
-        self.df['rank'] = 0.8 * self.df['GMR_rank'] + 0.2 * self.df['Profit_rank']
+        weights = [(0.8, 0.2), (0.7, 0.3), (0.6, 0.4), (0.5, 0.5)]
+        weight = random.sample(weights, 1)[0]
+        self.df['rank'] = weight[0] * self.df['GMR_rank'] + weight[1] * self.df['Profit_rank']
         self.df = self.df.sort_values(by='rank').head(30)
 #        print(len(self.df))

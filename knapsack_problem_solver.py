@@ -93,9 +93,9 @@ class KnapsackSolver:
                     method_solver.steps = self.args.steps
                 perimeter = sum(truck_capacity[self.truck_type])
                 if perimeter < 500:
-                    method_solver.base_line = min(self.rest_percent) * perimeter * 10.3 # avoid bad values
+                    method_solver.base_line = min(self.rest_percent) * perimeter * 10.2 # avoid bad values
                 else:
-                    method_solver.base_line = min(self.rest_percent) * perimeter * 9.3
+                    method_solver.base_line = min(self.rest_percent) * perimeter * 9.2
 
             best_value, best_solution = method_solver.run()
 
