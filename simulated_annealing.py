@@ -19,7 +19,7 @@ class KnapsackSimulatedAnnealing(KnapsackProblemConstructor):
 
     def run(self):
         ''' Kernel algo called by outside '''
-        print(self.base_line)
+#        print(self.base_line)
         # control the speed of cooling
         if self.base_line > 6000:
             self.ALPHA = 0.99 
