@@ -91,11 +91,14 @@ class KnapsackSolver:
                     method_solver.init_temp = self.args.start_temperature
                     method_solver.min_temp = self.args.min_temperature
                     method_solver.steps = self.args.steps
-                perimeter = sum(truck_capacity[self.truck_type])
-                if perimeter < 500:
-                    method_solver.base_line = min(self.rest_percent) * perimeter * 10.2 # avoid bad values
+                if self.args.debug_mode:
+                    method_solver.base_line = 0
                 else:
-                    method_solver.base_line = min(self.rest_percent) * perimeter * 9.2
+                    perimeter = sum(truck_capacity[self.truck_type])
+                    if perimeter < 500:
+                        method_solver.base_line = min(self.rest_percent) * perimeter * 10.2 # avoid bad values
+                    else:
+                        method_solver.base_line = min(self.rest_percent) * perimeter * 9.2
 
             best_value, best_solution = method_solver.run()
 
