@@ -30,7 +30,7 @@ class KnapsackSimulatedAnnealing(KnapsackProblemConstructor):
         else:
             self.ALPHA = 0.96
             
-        best_value, best_solution = 0, None
+        best_value, best_solution = -1, None
 #        print(self.ALPHA)
         while best_value < self.base_line:
 #            for _ in range(2):
