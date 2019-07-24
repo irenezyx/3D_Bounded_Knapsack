@@ -1,6 +1,7 @@
-# 3D_Bounded_Knapsack
+# 4D_Bounded_Knapsack
 3 dimensions for volume (height, length, width)
-bounded with available quantities for each item
+1 dimension for available quantities
+
 maximum value
 
 ### methods
