@@ -1,4 +1,4 @@
-# 4D_Bounded_Knapsack
+# 3D Bounded Knapsack
 3 dimensions for volume (height, length, width)
 1 dimension for available quantities
 
